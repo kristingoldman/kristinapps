@@ -4,6 +4,9 @@ docs/CREDENTIALS.md
 HOMEAUTOMATION.local.md
 .mcp.json
 .machine-name
+.env
+.env.local
+.wrangler/
 # SSH password files (use ~/.ssh/alpacapps-*.pass outside repo; ignore any local pass files)
 .sshpass-*
 *.pass

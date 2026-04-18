@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pages — kstn Style</title>
+  <meta name="description" content="Index of pages on albastyle.com">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="canonical" href="https://albastyle.com/pages/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fbf3e4;
+      --bg-warm: #f6e8cf;
+      --paper: #fffaf0;
+      --ink: #1f1108;
+      --ink-soft: #6b4a2f;
+      --ink-fade: #a08569;
+      --accent: #f09618;
+      --accent-deep: #c2410c;
+      --rule: #e6d2b0;
+      --rule-soft: rgba(111, 74, 47, 0.12);
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    body {
+      background:
+        radial-gradient(ellipse 70% 45% at 90% 10%, rgba(240, 150, 24, 0.14), transparent 60%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg-warm) 100%);
+      min-height: 100vh;
+    }
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 5rem 1.75rem 6rem;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent-deep);
+      margin: 0 0 1.25rem;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 1px;
+      background: var(--accent-deep);
+    }
+    h1 {
+      font-family: "Fraunces", Georgia, serif;
+      font-weight: 300;
+      font-size: clamp(2.75rem, 8vw, 5rem);
+      line-height: 1;
+      letter-spacing: -0.035em;
+      margin: 0 0 1rem;
+    }
+    h1 em {
+      font-style: italic;
+      font-weight: 500;
+      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-deep) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .lede {
+      font-family: "Fraunces", Georgia, serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: 1.25rem;
+      color: var(--ink-soft);
+      margin: 0 0 3.5rem;
+      max-width: 50ch;
+    }
+    .list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      border-top: 1px solid var(--rule);
+    }
+    .list li {
+      border-bottom: 1px solid var(--rule);
+    }
+    .list a {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: baseline;
+      gap: 1.5rem;
+      padding: 1.75rem 0.25rem;
+      text-decoration: none;
+      color: var(--ink);
+      transition: padding 0.25s ease, background 0.25s ease;
+    }
+    .list a:hover {
+      padding-left: 1rem;
+      padding-right: 1rem;
+      background: rgba(240, 150, 24, 0.05);
+    }
+    .list .num {
+      font-family: "Fraunces", Georgia, serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 1rem;
+      color: var(--accent-deep);
+      letter-spacing: 0.03em;
+      width: 2.5rem;
+    }
+    .list .meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      min-width: 0;
+    }
+    .list .title {
+      font-family: "Fraunces", Georgia, serif;
+      font-weight: 400;
+      font-size: 1.65rem;
+      letter-spacing: -0.015em;
+      line-height: 1.2;
+    }
+    .list .desc {
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+    }
+    .list .tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-fade);
+      padding: 0.3rem 0.65rem;
+      border: 1px solid var(--rule);
+      border-radius: 999px;
+      background: var(--paper);
+      white-space: nowrap;
+    }
+    @media (max-width: 540px) {
+      .list a { grid-template-columns: auto 1fr; gap: 1rem; }
+      .list .tag { grid-column: 2; justify-self: start; margin-top: 0.25rem; }
+    }
+    footer {
+      margin-top: 5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--rule);
+      font-size: 0.85rem;
+      color: var(--ink-fade);
+    }
+    footer a {
+      color: var(--accent-deep);
+      text-decoration: none;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <span data-site-version style="display:none;">v260418.01 10:00p</span>
+  <main>
+    <p class="eyebrow">Index · Pages</p>
+    <h1>A <em>Collection</em><br>of Pages</h1>
+    <p class="lede">
+      A quiet index of everything living under <code>/pages</code>. New entries
+      arrive as they're written.
+    </p>
+
+    <ol class="list">
+      <li>
+        <a href="/pages/salsa/">
+          <span class="num">№ 01</span>
+          <span class="meta">
+            <span class="title">A Great Mango Salsa</span>
+            <span class="desc">Ripe mango, lime, jalapeño — five minutes of chopping.</span>
+          </span>
+          <span class="tag">Recipe</span>
+        </a>
+      </li>
+    </ol>
+
+    <footer>
+      <a href="/">← kstn Style</a>
+    </footer>
+  </main>
+</body>
+</html>

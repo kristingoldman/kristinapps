@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mango Salsa — kstn Style</title>
+  <meta name="description" content="A bright, punchy mango salsa with lime, jalapeño, and fresh cilantro.">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="canonical" href="https://albastyle.com/pages/salsa/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,700;1,9..144,300;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fbf3e4;
+      --bg-warm: #f6e8cf;
+      --paper: #fffaf0;
+      --ink: #1f1108;
+      --ink-soft: #6b4a2f;
+      --ink-fade: #a08569;
+      --mango: #f09618;
+      --mango-deep: #c2410c;
+      --mango-shadow: #8a2c07;
+      --lime: #7a9a2c;
+      --chili: #c5342b;
+      --rule: #e6d2b0;
+      --rule-soft: rgba(111, 74, 47, 0.12);
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    body {
+      background:
+        radial-gradient(ellipse 80% 50% at 85% 0%, rgba(240, 150, 24, 0.18), transparent 60%),
+        radial-gradient(ellipse 60% 40% at 10% 100%, rgba(122, 154, 44, 0.12), transparent 60%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg-warm) 100%);
+      min-height: 100vh;
+    }
+    /* Subtle paper grain */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.35;
+      mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.45 0 0 0 0 0.28 0 0 0 0 0.12 0 0 0 0.08 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+      z-index: 0;
+    }
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 5rem 1.75rem 7rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: end;
+      margin-bottom: 3rem;
+    }
+    .hero-text { min-width: 0; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--mango-deep);
+      margin: 0 0 1.25rem;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 1px;
+      background: var(--mango-deep);
+    }
+    h1 {
+      font-family: "Fraunces", Georgia, serif;
+      font-weight: 300;
+      font-size: clamp(2.75rem, 8vw, 5.5rem);
+      line-height: 0.98;
+      letter-spacing: -0.035em;
+      margin: 0 0 1.5rem;
+      color: var(--ink);
+    }
+    h1 .accent {
+      font-style: italic;
+      font-weight: 500;
+      color: var(--mango);
+      background: linear-gradient(180deg, var(--mango) 0%, var(--mango-deep) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-art {
+      flex-shrink: 0;
+      width: 120px;
+      height: 120px;
+      filter: drop-shadow(0 18px 28px rgba(138, 44, 7, 0.22));
+    }
+    @media (max-width: 560px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-art { width: 90px; height: 90px; order: -1; justify-self: start; }
+    }
+    .lede {
+      font-family: "Fraunces", Georgia, serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+      line-height: 1.45;
+      color: var(--ink-soft);
+      margin: 0 0 3rem;
+      max-width: 54ch;
+    }
+
+    /* Meta strip */
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      padding: 1.5rem 1.75rem;
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      border-radius: 14px;
+      box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset, 0 18px 40px -24px rgba(138, 44, 7, 0.2);
+      margin-bottom: 4rem;
+    }
+    @media (max-width: 560px) {
+      .meta { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+    }
+    .meta > div {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      border-left: 1px solid var(--rule-soft);
+      padding-left: 1rem;
+    }
+    .meta > div:first-child { border-left: none; padding-left: 0; }
+    @media (max-width: 560px) {
+      .meta > div { border-left: none; padding-left: 0; }
+    }
+    .meta dt {
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-size: 0.65rem;
+      color: var(--ink-fade);
+      margin: 0 0 0.3rem;
+    }
+    .meta dd {
+      margin: 0;
+      font-family: "Fraunces", Georgia, serif;
+      font-weight: 400;
+      font-size: 1.35rem;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+
+    /* Section headings */
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin: 0 0 1.75rem;
+    }
+    .section-head .num {
+      font-family: "Fraunces", Georgia, serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 1.1rem;
+      color: var(--mango-deep);
+      letter-spacing: 0.05em;
+    }
+    h2 {
+      font-family: "Fraunces", Georgia, serif;
+      font-weight: 400;
+      font-size: 2rem;
+      letter-spacing: -0.015em;
+      margin: 0;
+      color: var(--ink);
+    }
+    .rule {
+      height: 1px;
+      flex: 1;
+      background: linear-gradient(90deg, var(--rule) 0%, transparent 100%);
+    }
+
+    /* Ingredients */
+    .ingredients {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 4rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      column-gap: 2.5rem;
+    }
+    @media (min-width: 620px) {
+      .ingredients { grid-template-columns: 1fr 1fr; }
+    }
+    .ingredients li {
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--rule-soft);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      font-size: 1rem;
+    }
+    .ingredients .name { color: var(--ink); }
+    .ingredients .qty {
+      font-family: "Fraunces", Georgia, serif;
+      font-weight: 500;
+      font-style: italic;
+      color: var(--mango-deep);
+      white-space: nowrap;
+      font-size: 1.05rem;
+    }
+
+    /* Steps */
+    .steps {
+      padding: 0;
+      margin: 0 0 4rem;
+      list-style: none;
+      counter-reset: step;
+    }
+    .steps li {
+      counter-increment: step;
+      position: relative;
+      padding: 0 0 2rem 4rem;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--ink);
+    }
+    .steps li::before {
+      content: counter(step, decimal-leading-zero);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 2.75rem;
+      font-family: "Fraunces", Georgia, serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 2rem;
+      line-height: 1;
+      color: var(--mango);
+      letter-spacing: -0.03em;
+    }
+    .steps li::after {
+      content: "";
+      position: absolute;
+      left: 0.75rem;
+      top: 2.4rem;
+      bottom: 0.5rem;
+      width: 1px;
+      background: linear-gradient(180deg, var(--rule) 0%, transparent 100%);
+    }
+    .steps li:last-child::after { display: none; }
+
+    /* Tip callout */
+    .tip {
+      position: relative;
+      margin: 0 0 4rem;
+      padding: 2rem 2.25rem;
+      background: linear-gradient(135deg, rgba(240, 150, 24, 0.1) 0%, rgba(194, 65, 12, 0.08) 100%);
+      border: 1px solid rgba(194, 65, 12, 0.2);
+      border-radius: 14px;
+    }
+    .tip-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: "Fraunces", Georgia, serif;
+      font-style: italic;
+      font-weight: 500;
+      font-size: 1.1rem;
+      color: var(--mango-deep);
+      margin: 0 0 0.5rem;
+    }
+    .tip-label::before {
+      content: "✦";
+      font-size: 0.9rem;
+    }
+    .tip p {
+      margin: 0;
+      color: var(--ink);
+      font-size: 1rem;
+      line-height: 1.65;
+    }
+
+    /* Pairings */
+    .pairings {
+      margin: 0 0 4rem;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+    .pairings li {
+      padding: 0.45rem 0.9rem;
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      border-radius: 999px;
+      font-size: 0.85rem;
+      color: var(--ink-soft);
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 5rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--ink-fade);
+    }
+    footer a {
+      color: var(--mango-deep);
+      text-decoration: none;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: gap 0.2s ease;
+    }
+    footer a:hover { gap: 0.7rem; }
+    footer .sig {
+      font-family: "Fraunces", Georgia, serif;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <span data-site-version style="display:none;">v260418.01 10:00p</span>
+  <main>
+    <div class="hero">
+      <div class="hero-text">
+        <p class="eyebrow">Recipe No. 01 · Salsas</p>
+        <h1>A Great<br><span class="accent">Mango</span> Salsa</h1>
+      </div>
+      <svg class="hero-art" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <radialGradient id="mg" cx="35%" cy="30%" r="85%">
+            <stop offset="0%" stop-color="#ffd66a"/>
+            <stop offset="45%" stop-color="#f09618"/>
+            <stop offset="100%" stop-color="#c2410c"/>
+          </radialGradient>
+          <radialGradient id="flesh" cx="50%" cy="45%" r="70%">
+            <stop offset="0%" stop-color="#ffe08a"/>
+            <stop offset="100%" stop-color="#f6a726"/>
+          </radialGradient>
+          <linearGradient id="leaf" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#a8c445"/>
+            <stop offset="100%" stop-color="#5e7a1f"/>
+          </linearGradient>
+        </defs>
+        <!-- leaf -->
+        <path d="M78 18 C88 12, 102 16, 104 28 C96 30, 84 26, 78 18 Z" fill="url(#leaf)"/>
+        <!-- mango body -->
+        <path d="M60 22 C92 24, 108 52, 102 82 C96 106, 68 112, 46 102 C22 90, 14 62, 28 42 C38 28, 48 22, 60 22 Z" fill="url(#mg)"/>
+        <!-- flesh cut -->
+        <ellipse cx="54" cy="64" rx="26" ry="32" fill="url(#flesh)" opacity="0.95" transform="rotate(-8 54 64)"/>
+        <!-- hatch scoring -->
+        <g stroke="#c2410c" stroke-width="0.6" opacity="0.35" fill="none">
+          <path d="M38 50 L74 78"/>
+          <path d="M42 44 L78 72"/>
+          <path d="M34 58 L70 86"/>
+          <path d="M70 42 L40 72"/>
+          <path d="M76 48 L46 78"/>
+          <path d="M80 54 L50 84"/>
+        </g>
+        <!-- highlight -->
+        <ellipse cx="40" cy="42" rx="8" ry="5" fill="#fff5d6" opacity="0.5" transform="rotate(-30 40 42)"/>
+      </svg>
+    </div>
+
+    <p class="lede">
+      Ripe mango, sharp red onion, lime, and a whisper of heat —
+      five minutes of chopping for a bowl that brightens anything it touches.
+    </p>
+
+    <dl class="meta">
+      <div><dt>Prep</dt><dd>10 min</dd></div>
+      <div><dt>Rest</dt><dd>15 min</dd></div>
+      <div><dt>Yield</dt><dd>3 cups</dd></div>
+      <div><dt>Serves</dt><dd>4–6</dd></div>
+    </dl>
+
+    <div class="section-head">
+      <span class="num">i.</span>
+      <h2>Ingredients</h2>
+      <div class="rule"></div>
+    </div>
+    <ul class="ingredients">
+      <li><span class="name">Ripe mangoes, diced</span><span class="qty">2 large</span></li>
+      <li><span class="name">Red bell pepper, small dice</span><span class="qty">½</span></li>
+      <li><span class="name">Red onion, finely diced</span><span class="qty">¼ cup</span></li>
+      <li><span class="name">Jalapeño, seeded &amp; minced</span><span class="qty">1</span></li>
+      <li><span class="name">Fresh cilantro, chopped</span><span class="qty">⅓ cup</span></li>
+      <li><span class="name">Lime juice, fresh</span><span class="qty">2 tbsp</span></li>
+      <li><span class="name">Flaky sea salt</span><span class="qty">½ tsp</span></li>
+      <li><span class="name">Honey, optional</span><span class="qty">1 tsp</span></li>
+    </ul>
+
+    <div class="section-head">
+      <span class="num">ii.</span>
+      <h2>Method</h2>
+      <div class="rule"></div>
+    </div>
+    <ol class="steps">
+      <li>Soak the diced red onion in cold water for five minutes, then drain. This tames the bite without killing the crunch.</li>
+      <li>Peel and dice the mangoes into roughly quarter-inch cubes — pieces that hold their shape on a chip.</li>
+      <li>In a medium bowl, combine mango, bell pepper, drained onion, jalapeño, and cilantro. Toss gently with a rubber spatula.</li>
+      <li>Squeeze in the lime juice and sprinkle the salt. If your mangoes lean tart, stir in a teaspoon of honey to balance.</li>
+      <li>Rest fifteen minutes at room temperature so the flavors marry. Taste, adjust salt and lime, then serve.</li>
+    </ol>
+
+    <div class="tip">
+      <p class="tip-label">A note on mangoes</p>
+      <p>
+        The best variety for salsa is <em>Ataulfo</em> — small, golden,
+        almost fiberless, honey-sweet. If yours are rock-hard, give them
+        two days on the counter in a paper bag before cutting.
+      </p>
+    </div>
+
+    <div class="section-head">
+      <span class="num">iii.</span>
+      <h2>Pairs well with</h2>
+      <div class="rule"></div>
+    </div>
+    <ul class="pairings">
+      <li>grilled mahi-mahi</li>
+      <li>pork carnitas tacos</li>
+      <li>crispy tortilla chips</li>
+      <li>black bean tostadas</li>
+      <li>coconut rice bowls</li>
+      <li>a very cold beer</li>
+    </ul>
+
+    <footer>
+      <a href="/">← kstn Style</a>
+      <span class="sig">No. 01</span>
+    </footer>
+  </main>
+  <script type="module" src="/shared/version-info.js"></script>
+</body>
+</html>

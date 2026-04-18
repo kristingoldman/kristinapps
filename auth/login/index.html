@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign in — kstn Style</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <style>
+    :root {
+      --bg: #fbf3e4;
+      --bg-warm: #f6e8cf;
+      --paper: #fffaf0;
+      --ink: #1f1108;
+      --ink-soft: #6b4a2f;
+      --ink-fade: #a08569;
+      --accent: #f09618;
+      --accent-deep: #c2410c;
+      --chili: #c5342b;
+      --rule: #e6d2b0;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    body {
+      background:
+        radial-gradient(ellipse 60% 40% at 80% 0%, rgba(240, 150, 24, 0.18), transparent 60%),
+        radial-gradient(ellipse 60% 40% at 10% 100%, rgba(240, 150, 24, 0.10), transparent 60%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg-warm) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .card {
+      width: 100%;
+      max-width: 440px;
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      border-radius: 18px;
+      padding: 3rem 2.5rem;
+      box-shadow: 0 30px 60px -30px rgba(138, 44, 7, 0.25), 0 1px 0 rgba(255,255,255,0.6) inset;
+      text-align: center;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent-deep);
+      margin: 0 0 1rem;
+    }
+    .eyebrow::before, .eyebrow::after {
+      content: "";
+      width: 20px;
+      height: 1px;
+      background: var(--accent-deep);
+    }
+    h1 {
+      font-family: "Fraunces", Georgia, serif;
+      font-weight: 300;
+      font-size: 2.4rem;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin: 0 0 1rem;
+    }
+    h1 em {
+      font-style: italic;
+      font-weight: 500;
+      color: var(--accent-deep);
+    }
+    p.sub {
+      font-family: "Fraunces", Georgia, serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 1.05rem;
+      color: var(--ink-soft);
+      margin: 0 0 2rem;
+    }
+    #g_container {
+      display: flex;
+      justify-content: center;
+      min-height: 44px;
+      margin: 0 auto 1.25rem;
+    }
+    .error {
+      display: none;
+      margin: 0 0 1rem;
+      padding: 0.75rem 1rem;
+      background: rgba(197, 52, 43, 0.08);
+      border: 1px solid rgba(197, 52, 43, 0.25);
+      border-radius: 10px;
+      color: var(--chili);
+      font-size: 0.9rem;
+    }
+    .error.show { display: block; }
+    .footnote {
+      font-size: 0.8rem;
+      color: var(--ink-fade);
+      margin: 1.5rem 0 0;
+    }
+    .footnote a { color: var(--accent-deep); text-decoration: none; }
+    .config-warn {
+      display: none;
+      margin: 1rem 0;
+      padding: 0.9rem 1rem;
+      background: rgba(240, 150, 24, 0.1);
+      border: 1px solid rgba(194, 65, 12, 0.3);
+      border-radius: 10px;
+      color: var(--accent-deep);
+      font-size: 0.85rem;
+      text-align: left;
+    }
+    .config-warn.show { display: block; }
+    .config-warn code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.85em;
+      background: rgba(194, 65, 12, 0.1);
+      padding: 0.1rem 0.3rem;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <p class="eyebrow">Members Only</p>
+    <h1>Sign in to<br><em>continue</em></h1>
+    <p class="sub">This page is kept for a small circle. A Google account is all you need.</p>
+
+    <div id="err" class="error" role="alert"></div>
+    <div id="config-warn" class="config-warn">
+      <strong>Not configured yet.</strong> The server is missing <code>GOOGLE_CLIENT_ID</code>.
+      Ask the site owner to finish setup.
+    </div>
+
+    <div id="g_container"></div>
+
+    <p class="footnote">
+      <a href="/">← Back home</a>
+    </p>
+  </main>
+
+  <script>
+    (async function init() {
+      const errEl = document.getElementById("err");
+      const warn = document.getElementById("config-warn");
+      const container = document.getElementById("g_container");
+
+      const redirect = new URLSearchParams(location.search).get("redirect") || "/";
+
+      let clientId = "";
+      try {
+        const res = await fetch("/auth/config");
+        if (res.ok) {
+          const data = await res.json();
+          clientId = data.clientId || "";
+        }
+      } catch {}
+
+      if (!clientId) {
+        warn.classList.add("show");
+        return;
+      }
+
+      function waitForGoogle() {
+        return new Promise((resolve) => {
+          if (window.google?.accounts?.id) return resolve();
+          const interval = setInterval(() => {
+            if (window.google?.accounts?.id) {
+              clearInterval(interval);
+              resolve();
+            }
+          }, 50);
+        });
+      }
+
+      await waitForGoogle();
+
+      window.google.accounts.id.initialize({
+        client_id: clientId,
+        callback: async (response) => {
+          errEl.classList.remove("show");
+          try {
+            const r = await fetch("/auth/callback", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ credential: response.credential }),
+            });
+            const data = await r.json();
+            if (r.ok) {
+              location.href = redirect;
+            } else if (r.status === 403 && data.error === "not_authorized") {
+              errEl.textContent = `Sorry, ${data.email} isn't on the list.`;
+              errEl.classList.add("show");
+            } else {
+              errEl.textContent = "Sign-in failed. Please try again.";
+              errEl.classList.add("show");
+            }
+          } catch {
+            errEl.textContent = "Network error. Please try again.";
+            errEl.classList.add("show");
+          }
+        },
+      });
+
+      window.google.accounts.id.renderButton(container, {
+        theme: "outline",
+        size: "large",
+        shape: "pill",
+        text: "continue_with",
+        width: 300,
+      });
+    })();
+  </script>
+</body>
+</html>
