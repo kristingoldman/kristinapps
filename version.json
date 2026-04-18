@@ -1,12 +1,12 @@
 {
-  "version": "v260418.04 11:26p",
-  "release": 4,
-  "sha": "4295395",
-  "fullSha": "429539593c0c415e2381e05f7f480175d30ad9dd",
+  "version": "v260418.05 11:45p",
+  "release": 5,
+  "sha": "e516ce1",
+  "fullSha": "e516ce19cb552ad49bd3110fb2f1a63341138149",
   "actor": "kristingoldman",
   "source": "cloudflare-pages-deploy",
   "model": "ci",
   "machine": "runnervmeorf1",
-  "pushedAt": "2026-04-18T16:26:41-07:00",
-  "commits": [{"sha":"4295395","message":"Add receipts summary page at /receipts on albastyle.com","author":"Kristin Hudson"}]
+  "pushedAt": "2026-04-18T16:44:54-07:00",
+  "commits": [{"sha":"e516ce1","message":"Richer receipts_app schema: merchants, products, variants, returns","author":"Kristin Hudson"}]
 }
