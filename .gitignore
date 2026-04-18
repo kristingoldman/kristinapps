@@ -1,6 +1,8 @@
 # Private credentials and operator directives
 CLAUDE.local.md
 docs/CREDENTIALS.md
+.env
+.env.local
 HOMEAUTOMATION.local.md
 .mcp.json
 .machine-name
