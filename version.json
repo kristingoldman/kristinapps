@@ -1,12 +1,12 @@
 {
-  "version": "v260418.01 10:00p",
-  "release": 1,
-  "sha": "3c239f4",
-  "fullSha": "3c239f4fdd92dd21030c98f1a6d63937d50dbe51",
+  "version": "v260418.02 11:10p",
+  "release": 2,
+  "sha": "6a3fd8e",
+  "fullSha": "6a3fd8eec11c05cc4512b87d0673771f4649f3a1",
   "actor": "kristingoldman",
   "source": "cloudflare-pages-deploy",
   "model": "ci",
   "machine": "runnervmeorf1",
-  "pushedAt": "2026-04-18T15:00:10-07:00",
-  "commits": []
+  "pushedAt": "2026-04-18T16:10:19-07:00",
+  "commits": [{"sha":"6a3fd8e","message":"Set up albastyle.com with Google-gated /pages section","author":"Kristin Hudson"}]
 }
