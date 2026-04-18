@@ -1,9 +1,10 @@
-const ALLOWED_EMAILS = [
-  "kristinhudsongoldman@gmail.com",
-  "rgoldman@gmail.com",
-];
+import {
+  ALLOWED_EMAILS,
+  COOKIE_NAME,
+  hmacSign,
+  b64urlEncode,
+} from "../_shared/session.js";
 
-const COOKIE_NAME = "albastyle_session";
 const SESSION_TTL_SECONDS = 7 * 24 * 60 * 60;
 
 export async function onRequestPost(context) {
@@ -62,25 +63,6 @@ async function signSession(payload, secret) {
   const payloadB64 = b64urlEncode(new TextEncoder().encode(JSON.stringify(payload)));
   const sig = await hmacSign(payloadB64, secret);
   return `${payloadB64}.${sig}`;
-}
-
-async function hmacSign(data, secret) {
-  const enc = new TextEncoder();
-  const key = await crypto.subtle.importKey(
-    "raw",
-    enc.encode(secret),
-    { name: "HMAC", hash: "SHA-256" },
-    false,
-    ["sign"],
-  );
-  const sig = await crypto.subtle.sign("HMAC", key, enc.encode(data));
-  return b64urlEncode(new Uint8Array(sig));
-}
-
-function b64urlEncode(bytes) {
-  let str = "";
-  for (const b of bytes) str += String.fromCharCode(b);
-  return btoa(str).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }
 
 function json(data, status = 200) {
