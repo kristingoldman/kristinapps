@@ -1,12 +1,12 @@
 {
-  "version": "v260418.02 11:10p",
-  "release": 2,
-  "sha": "6a3fd8e",
-  "fullSha": "6a3fd8eec11c05cc4512b87d0673771f4649f3a1",
+  "version": "v260418.03 11:16p",
+  "release": 3,
+  "sha": "beb0a9f",
+  "fullSha": "beb0a9fef0b1757c22450d3d12bfef0d7bcdaa81",
   "actor": "kristingoldman",
   "source": "cloudflare-pages-deploy",
   "model": "ci",
   "machine": "runnervmeorf1",
-  "pushedAt": "2026-04-18T16:10:19-07:00",
-  "commits": [{"sha":"6a3fd8e","message":"Set up albastyle.com with Google-gated /pages section","author":"Kristin Hudson"}]
+  "pushedAt": "2026-04-18T16:16:39-07:00",
+  "commits": [{"sha":"beb0a9f","message":"chore: gitignore .env files","author":"Kristin Hudson"}]
 }
