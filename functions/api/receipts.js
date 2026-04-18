@@ -18,11 +18,11 @@ export async function onRequestGet(context) {
   };
 
   const receiptsRes = await fetch(
-    `${base}/rest/v1/receipts?select=*&order=created_at.asc`,
+    `${base}/rest/v1/receipts_enriched?select=*&order=created_at.asc`,
     { headers },
   );
   if (!receiptsRes.ok) {
-    return json({ error: "supabase_error", status: receiptsRes.status }, 502);
+    return json({ error: "supabase_error", status: receiptsRes.status, detail: await receiptsRes.text() }, 502);
   }
   const receipts = await receiptsRes.json();
 
@@ -32,7 +32,7 @@ export async function onRequestGet(context) {
 
   const idList = receipts.map((r) => `"${r.id}"`).join(",");
   const itemsRes = await fetch(
-    `${base}/rest/v1/receipt_items?select=receipt_id,name,qty,price,url,position&receipt_id=in.(${idList})&order=receipt_id,position.asc`,
+    `${base}/rest/v1/receipt_items_enriched?select=*&receipt_id=in.(${idList})&order=receipt_id,position.asc`,
     { headers },
   );
   const items = itemsRes.ok ? await itemsRes.json() : [];
@@ -40,10 +40,13 @@ export async function onRequestGet(context) {
   const itemsByReceipt = {};
   for (const it of items) {
     (itemsByReceipt[it.receipt_id] ||= []).push({
-      name: it.name,
+      name: it.product_name || it.name,
       qty: it.qty,
       price: it.price,
-      url: it.url,
+      url: it.url || it.product_url_canonical,
+      image: it.product_image_url,
+      brand: it.brand,
+      category: it.category,
     });
   }
   for (const r of receipts) {

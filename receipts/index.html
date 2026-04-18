@@ -164,6 +164,26 @@
       letter-spacing: -0.01em;
       margin: 0;
     }
+    .merchant-link {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s ease;
+    }
+    .merchant-link:hover { border-bottom-color: var(--accent-deep); }
+    .policy-wrap {
+      font-family: "Inter", sans-serif;
+      font-weight: 400;
+      font-size: 0.78rem;
+      color: var(--ink-fade);
+      margin-left: 0.5rem;
+    }
+    .policy-link {
+      color: var(--ink-fade);
+      text-decoration: none;
+      border-bottom: 1px dotted var(--ink-fade);
+    }
+    .policy-link:hover { color: var(--accent-deep); border-bottom-color: var(--accent-deep); }
     .row .items {
       font-size: 0.9rem;
       color: var(--ink-soft);
@@ -338,14 +358,25 @@
       return `<span class="badge muted">${days}d</span>`;
     }
 
+    function merchantLabel(r) {
+      const name = escapeHtml(r.merchant_name || "Unknown");
+      if (r.merchant_website) {
+        return `<a class="merchant-link" href="${escapeHtml(r.merchant_website)}" target="_blank" rel="noopener noreferrer">${name}</a>`;
+      }
+      return name;
+    }
+
     function renderRow(r, rightHtml) {
       const restrictions = (r.restrictions && r.restrictions.length)
         ? '<div class="restrictions">' + r.restrictions.map(escapeHtml).join(" · ") + "</div>"
         : "";
+      const policyLink = r.store_policy_url
+        ? ` · <a class="policy-link" href="${escapeHtml(r.store_policy_url)}" target="_blank" rel="noopener noreferrer">policy</a>`
+        : "";
       return `
         <div class="row">
           <div>
-            <div class="merchant">${escapeHtml(r.merchant || "Unknown")}</div>
+            <div class="merchant">${merchantLabel(r)}${policyLink ? `<span class="policy-wrap">${policyLink}</span>` : ""}</div>
             ${itemsPreview(r.items)}
             ${restrictions}
           </div>
@@ -358,23 +389,21 @@
     }
 
     function renderReceipts(container, receipts) {
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-
       const active = [];
       const returned = [];
       const expired = [];
       const noDeadline = [];
 
       for (const r of receipts) {
-        if (r.return_status === "returned") { returned.push(r); continue; }
-        if (!r.return_by) { noDeadline.push(r); continue; }
-        const d = new Date(r.return_by + "T00:00:00");
-        if (isNaN(d)) { noDeadline.push(r); continue; }
-        if (d < today) { expired.push(r); } else { active.push(r); }
+        switch (r.effective_status) {
+          case "returned": returned.push(r); break;
+          case "expired": expired.push(r); break;
+          case "no_deadline": noDeadline.push(r); break;
+          default: active.push(r);
+        }
       }
 
-      active.sort((a, b) => new Date(a.return_by) - new Date(b.return_by));
+      active.sort((a, b) => (a.days_to_return_deadline ?? 9999) - (b.days_to_return_deadline ?? 9999));
       expired.sort((a, b) => new Date(b.return_by) - new Date(a.return_by));
 
       const lifetime = receipts.reduce((s, r) => s + (Number(r.total) || 0), 0);
@@ -424,7 +453,7 @@
         "Active windows",
         "Active",
         active.map((r) => {
-          const days = daysBetween(r.return_by, today);
+          const days = r.days_to_return_deadline;
           return renderRow(r, `<div>${badgeForDays(days)}</div><div style="color:#a08569;font-size:0.78rem">by ${escapeHtml(r.return_by)}</div>`);
         }),
         "Nothing currently returnable."
@@ -440,7 +469,7 @@
       parts.push(section(
         "Returned",
         "Returned",
-        returned.map((r) => renderRow(r, `<span class="badge ok">returned ${escapeHtml(r.returned_on || "")}</span>`)),
+        returned.map((r) => renderRow(r, `<span class="badge ok">returned ${escapeHtml(r.latest_refunded_on || "")}</span>`)),
         "Nothing returned yet."
       ));
 
